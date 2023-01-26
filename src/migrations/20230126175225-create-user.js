@@ -9,10 +9,10 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    email: {
+    display_name: {
       type: Sequelize.STRING(255),
     },
-    displayName: {
+    email: {
       type: Sequelize.STRING(255),
     },
     password: {

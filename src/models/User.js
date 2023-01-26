@@ -1,4 +1,4 @@
-const UserSchema = (sequelize, DataTypes) => {
+const User = (sequelize, DataTypes) => {
   const UserTable = sequelize.define('User', {
     displayName: DataTypes.STRING,
     email: DataTypes.STRING(255),
@@ -22,4 +22,4 @@ const UserSchema = (sequelize, DataTypes) => {
   return UserTable;
 };
 
-module.exports = UserSchema;
+module.exports = User;
