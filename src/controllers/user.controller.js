@@ -6,8 +6,11 @@ const findAll = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  const user = await userServices.createUser(req.body);
-  return res.status(201).json(user);
+  const token = await userServices.createUser(req.body);
+  if (!token.type) {
+   return res.status(201).json({ token: token.message });
+  }
+  return res.status(token.type).json({ message: token.message });
 };
 
 module.exports = {
