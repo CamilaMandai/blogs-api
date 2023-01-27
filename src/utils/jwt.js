@@ -16,8 +16,16 @@ const generateToken = (payload) => {
 };
 
 const decodeToken = (token) => {
-  const result = jwt.verify(token, TOKEN_SECRET);
-  return result;
+  if (!token) {
+    throw new Error('Undefined Token');
+  }
+
+  try {
+    const result = jwt.verify(token, TOKEN_SECRET);
+    return result;
+  } catch (err) {
+    return null;
+  }
 };
 
 module.exports = {
