@@ -2,7 +2,11 @@ const { User } = require('../models');
 const jwtUtils = require('../utils/jwt');
 
 const findAll = async () => {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    attributes: {
+        exclude: ['password'],
+    },
+});
   return users;
 };
 
