@@ -16,16 +16,8 @@ const generateToken = (payload) => {
 };
 
 const decodeToken = (token) => {
-  if (!token) {
-    throw new Error('Undefined Token');
-  }
-
-  try {
-    const result = jwt.verify(token, TOKEN_SECRET);
-    return result;
-  } catch (err) {
-    return new Error('Invalid assignature');
-  }
+  const result = jwt.verify(token, TOKEN_SECRET);
+  return result;
 };
 
 module.exports = {
