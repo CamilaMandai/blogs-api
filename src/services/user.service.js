@@ -11,7 +11,11 @@ const findAll = async () => {
 };
 
 const getById = async (id) => {
-  const user = await User.findByPk(id);
+  const user = await User.findByPk(id, {
+    attributes: {
+        exclude: ['password'],
+    },
+});
   if (!user) {
     return { type: 404, message: 'User does not exist' };
   }
