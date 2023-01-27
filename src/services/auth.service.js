@@ -1,22 +1,18 @@
 const jwtUtils = require('../utils/jwt');
 
-const User = require('../models/User');
+const { User } = require('../models');
 
 const validate = async (email, password) => {
-  if (!email || !password) {
-    throw new Error('Fields Required');
-  }
-
-  const user = await User.findOne({
+   const usuario = await User.findOne({
     where: { email, password },
   });
-
-  if (!user) {
-    return { type: 'user not found', message: 'Invalid fields' };
+  if (!usuario) {
+    return { type: 400, message: 'Invalid fields' };
   }
 
-  const token = jwtUtils.generateToken(user);
-  return token;
+  const token = jwtUtils.generateToken(usuario);
+  return { type: null, message: token };
+  // return { type: null, message: usuario };
 };
 
 module.exports = {
