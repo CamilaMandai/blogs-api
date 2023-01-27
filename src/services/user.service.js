@@ -15,6 +15,7 @@ const getById = async (id) => {
   if (!user) {
     return { type: 404, message: 'User does not exist' };
   }
+  delete user.password;
   return { type: null, message: user };
 };
 
