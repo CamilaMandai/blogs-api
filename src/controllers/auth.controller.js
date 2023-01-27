@@ -5,7 +5,7 @@ const auth = async (req, res) => {
 
   const token = await authService.validate(email, password);
   if (!token.type) {
-    return res.status(200).json(token.message);
+    return res.status(200).json({ token: token.message });
   }
   
   return res.status(400).json({ message: token.message });
