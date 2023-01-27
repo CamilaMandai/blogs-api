@@ -10,14 +10,14 @@ const { decodeToken } = require('../utils/jwt');
 
 const authMiddlewareToken = (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(req.headers);
 
-  const user = decodeToken(authorization);
-
-  if (!user) {
+  if (!authorization) {
     return res.status(401).json({ message: 'Token not found' });
   }
+  const user = decodeToken(authorization);
   const currDate = new Date();
-  if (user.exp < currDate.getTime() / 1000) {
+  if (!user || user.exp < currDate.getTime() / 1000) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
   req.body.user = user;
