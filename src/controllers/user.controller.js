@@ -5,6 +5,15 @@ const findAll = async (req, res) => {
    return res.status(200).json(users);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const user = await userServices.getById(id);
+  if (!user.type) {
+    return res.status(200).json(user.message);
+  }
+  return res.status(user.type).json({ message: user.message });
+};
+
 const createUser = async (req, res) => {
   const token = await userServices.createUser(req.body);
   if (!token.type) {
@@ -15,5 +24,6 @@ const createUser = async (req, res) => {
 
 module.exports = {
   findAll,
+  getById,
   createUser,
 };

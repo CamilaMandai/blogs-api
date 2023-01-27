@@ -10,6 +10,10 @@ router.get('/',
   authMiddlewares.authMiddlewareToken, 
   userController.findAll);
 
+router.get('/:id',
+  authMiddlewares.authMiddlewareToken, 
+  userController.getById);
+
 router.post('/', userMiddlewares.validateFields, userController.createUser);
 
 module.exports = router;
