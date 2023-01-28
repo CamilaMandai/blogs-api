@@ -8,7 +8,7 @@ const findAll = async (req, res) => {
 const createCategory = async (req, res) => {
   const { name } = req.body;
   const createdCategory = await categoryService.createCategory(name);
-  res.status(200).json(createdCategory);
+  res.status(201).json(createdCategory);
 };
 
 module.exports = {
