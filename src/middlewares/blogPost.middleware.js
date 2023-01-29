@@ -1,4 +1,5 @@
 const categoryService = require('../services/category.service');
+const blogPostService = require('../services/blogPost.service');
 
 const validateFields = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -18,6 +19,16 @@ const validateFields = async (req, res, next) => {
   return next();
 };
 
+const validateId = async (req, res, next) => {
+  const { id } = req.params;
+  const post = await blogPostService.getById(id);
+  if (!post) {
+    return res.status(404).json({ message: 'Post does not exist' });
+  }
+  return next();
+};
+
 module.exports = {
   validateFields,
+  validateId,
 };

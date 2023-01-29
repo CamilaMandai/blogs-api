@@ -18,6 +18,23 @@ const findAll = async () => {
   return postWithUserCategories;
 };
 
+const getById = async (id) => {
+  const post = await BlogPost.findByPk(id, {
+    attributes: {
+      exclude: ['user_id'],
+  },
+    include: [{ 
+      model: User,
+      as: 'user',
+      attributes: { exclude: ['password'] } }, {
+        model: Category, 
+        as: 'categories',
+        attributes: { exclude: [['PostCategory']] },
+      }],
+  });
+  return post;
+};
+
 const createPost = async ({ title, content, categoryIds }, token) => {
   const user = jwtUtils.decodeToken(token);
   await BlogPost.create({ title, content, categoryId: categoryIds, userId: user.id });
@@ -35,5 +52,6 @@ const createPost = async ({ title, content, categoryIds }, token) => {
 
 module.exports = {
   findAll,
+  getById,
   createPost,
 };

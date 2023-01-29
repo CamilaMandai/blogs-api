@@ -7,6 +7,11 @@ const router = express.Router();
 
 router.get('/', authMiddlewares.authMiddlewareToken, blogPostController.findAll);
 
+router.get('/:id', 
+  authMiddlewares.authMiddlewareToken, 
+  blogPostMiddleware.validateId,
+  blogPostController.getById);
+
 router.post('/',
   authMiddlewares.authMiddlewareToken,
   blogPostMiddleware.validateFields,
