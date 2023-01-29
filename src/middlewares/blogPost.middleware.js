@@ -1,5 +1,6 @@
 const categoryService = require('../services/category.service');
 const blogPostService = require('../services/blogPost.service');
+const jwtUtils = require('../utils/jwt');
 
 const validateFields = async (req, res, next) => {
   const { title, content, categoryIds } = req.body;
@@ -28,7 +29,30 @@ const validateId = async (req, res, next) => {
   return next();
 };
 
+const validateFieldsToUpdate = async (req, res, next) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({
+      message: 'Some required fields are missing',
+    });
+  }
+  return next();
+};
+
+const validateUserToUpdate = async (req, res, next) => {
+  const { authorization } = req.headers;
+  const { id } = req.params;
+  const user = jwtUtils.decodeToken(authorization);
+  const post = await blogPostService.getById(id);
+  if (user.id !== post.user.id) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  return next();
+};
+
 module.exports = {
   validateFields,
   validateId,
+  validateUserToUpdate,
+  validateFieldsToUpdate,
 };

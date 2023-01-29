@@ -50,8 +50,19 @@ const createPost = async ({ title, content, categoryIds }, token) => {
   };
 };
 
+const udpatePost = async ({ title, content }, id) => {
+  const [qtdUpdated] = await BlogPost.update({ title, content }, { where: { id } });
+  return qtdUpdated > 0;
+};
+
+const deletePost = async (id) => {
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
   findAll,
   getById,
   createPost,
+  udpatePost,
+  deletePost,
 };
