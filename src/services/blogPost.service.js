@@ -1,4 +1,6 @@
+const { Op } = require('sequelize');  
 const { BlogPost, User, Category } = require('../models');
+
 const jwtUtils = require('../utils/jwt');
 
 const findAll = async () => { 
@@ -59,10 +61,32 @@ const deletePost = async (id) => {
   await BlogPost.destroy({ where: { id } });
 };
 
+const search = async (q) => {
+  const postsByTitle = await BlogPost.findAll({ where: { title: { [Op.like]: `%${q}%` } }, 
+    attributes: { exclude: ['user_id'] },
+  include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, {
+      model: Category, 
+      as: 'categories',
+      attributes: { exclude: [['PostCategory']] },
+    }] });
+  const postsByContent = await BlogPost.findAll({ where: { content: { [Op.like]: `%${q}%` } },
+  attributes: { exclude: ['user_id'] },
+include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, {
+    model: Category, 
+    as: 'categories',
+    attributes: { exclude: [['PostCategory']] },
+  }] });
+  if (postsByTitle.length !== 0) {
+    return postsByTitle;
+  }
+  return postsByContent;
+};
+
 module.exports = {
   findAll,
   getById,
   createPost,
   udpatePost,
   deletePost,
+  search,
 };

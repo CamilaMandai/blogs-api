@@ -11,6 +11,8 @@ router.post('/',
   blogPostMiddleware.validateFields,
   blogPostController.createPost);
 
+router.get('/search', authMiddlewares.authMiddlewareToken, blogPostController.search);
+
 router.get('/:id', 
   authMiddlewares.authMiddlewareToken, 
   blogPostMiddleware.validateId,
