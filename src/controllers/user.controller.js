@@ -1,3 +1,4 @@
+const jwtUtils = require('../utils/jwt');
 const userServices = require('../services/user.service');
 
 const findAll = async (req, res) => {
@@ -22,8 +23,16 @@ const createUser = async (req, res) => {
   return res.status(token.type).json({ message: token.message });
 };
 
+const deleteUser = async (req, res) => {
+   const { authorization } = req.headers;
+   const user = jwtUtils.decodeToken(authorization);
+   await userServices.deleteUser(user.id);
+   return res.status(204).json();
+};
+
 module.exports = {
   findAll,
   getById,
   createUser,
+  deleteUser,
 };

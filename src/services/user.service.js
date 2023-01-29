@@ -38,8 +38,13 @@ const createUser = async ({ displayName, email, password, image }) => {
   return { type: 409, message: 'User already registered' };
 };
 
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+};
+
 module.exports = {
   findAll,
   getById,
   createUser,
+  deleteUser,
 };
