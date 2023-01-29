@@ -4,16 +4,16 @@ const BlogPost = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       primaryKey: true,
     },
-    userId: DataTypes.INTEGER,
     title: DataTypes.STRING(255),
     content: DataTypes.STRING(255),
+    userId: DataTypes.INTEGER,
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   },
     {
       tableName: 'blog_posts',
       underscored: true,
-      timestamps: true,
+      timestamps: false,
     },
   );
   BlogPostTable.associate = (models) => {

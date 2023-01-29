@@ -12,9 +12,15 @@ module.exports = {
       title: {
         type: Sequelize.STRING(255),
     },
-      content: {
+    content: {
         type: Sequelize.STRING(255),        
       },
+    // created_at: {
+    //    type: Sequelize.DATE,
+    //  },
+    // updated_at: {
+    //    type: Sequelize.DATE,
+    // },
       user_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -26,15 +32,25 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      created_at: {
-        field: 'published',
+      // createdAt: {
+      //   field: 'published',
+      //   type: Sequelize.DATE,
+      //   allowNull: false,
+      // },
+      // updatedAt: {
+      //   field: 'updated',
+      //   type: Sequelize.DATE,
+      //   allowNull: false,
+      // }
+      published: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: new Date,
       },
-      updated_at: {
-        field: 'updated',
+      updated: {
         type: Sequelize.DATE,
         allowNull: false,
+        defaultValue: new Date,
       }
    });
     
