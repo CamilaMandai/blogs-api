@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');  
-const { BlogPost, User, Category, PostCategory } = require('../models');
+const { BlogPost, User, Category } = require('../models');
 
 const jwtUtils = require('../utils/jwt');
 
