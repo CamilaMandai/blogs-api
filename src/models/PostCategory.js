@@ -2,8 +2,8 @@ const PostCategory = (sequelize, DataTypes) => {
   const PostCategoryTable = sequelize.define(
     'PostCategory',
     {
-      postId: DataTypes.INTEGER,
-      categoryId: DataTypes.INTEGER,
+      // postId: DataTypes.INTEGER,
+      // categoryId: DataTypes.INTEGER,
   },
     {
       timestamps: false,

@@ -15,6 +15,9 @@ module.exports = {
     content: {
         type: Sequelize.STRING(255),        
       },
+    // category_id: {
+    //     type: Sequelize.ARRAY,
+    // },
     // created_at: {
     //    type: Sequelize.DATE,
     //  },
