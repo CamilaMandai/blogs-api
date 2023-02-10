@@ -25,13 +25,11 @@ module.exports = {
     //    type: Sequelize.DATE,
     // },
       user_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
           key: 'id'
         },
-        primaryKey: true,
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
@@ -55,7 +53,11 @@ module.exports = {
         allowNull: false,
         defaultValue: new Date,
       }
-   });
+   },
+   {
+    timestamps: false,
+   },
+   );
     
   },
   down: async (queryInterface, Sequelize) => {

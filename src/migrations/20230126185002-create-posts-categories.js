@@ -25,6 +25,9 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
+    },
+    {
+      timestamps: false,
     });
   
   },

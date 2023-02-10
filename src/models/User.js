@@ -3,6 +3,8 @@ const User = (sequelize, DataTypes) => {
     id:{
       type: DataTypes.INTEGER,
       primaryKey: true,
+      allowNull: false,
+      autoIncrement: true,
     },
     displayName: DataTypes.STRING(255),
     email: DataTypes.STRING(255),
@@ -19,7 +21,7 @@ const User = (sequelize, DataTypes) => {
  UserTable.associate = (models) => {
    UserTable.hasMany(models.BlogPost, {
      as: 'blogPosts',
-     foreignKey: 'user_id',
+     foreignKey: 'userId',
    });
  }
 

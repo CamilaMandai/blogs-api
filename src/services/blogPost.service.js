@@ -2,7 +2,7 @@ const { Op } = require('sequelize');
 const { 
   BlogPost, 
   User, 
-  Category } = require('../models');
+  Category, PostCategory } = require('../models');
 
 const jwtUtils = require('../utils/jwt');
 
@@ -42,16 +42,14 @@ const getById = async (id) => {
 
 const createPost = async ({ title, content, categoryIds }, token) => {
   const user = jwtUtils.decodeToken(token);
-  // console.log(Array.isArray(categoryIds));
   const newPost = await BlogPost.create({ 
     title, content, categoryId: categoryIds, userId: user.id });
   const posts = await BlogPost.findAll();
-  // await PostCategory.create({ postId: posts.length, categoryId: categoryIds });
-  // const createdPost = await BlogPost.findOne({ where: { id: posts.length } });
-  // const createPostCategoryPromisses = categoryIds.map(
-  //   async (categoryId) => PostCategory.create({ postId: posts.length, categoryId }),
-  //   );
-  // await Promise.all(createPostCategoryPromisses);
+  const createPostCategoryPromisses = categoryIds.map(async (categoryId) => {
+      console.log(newPost.id, categoryId);
+      return PostCategory.create({ postId: newPost.id, categoryId });
+    });
+  await Promise.all(createPostCategoryPromisses);
   return {
     id: posts.length,
     title,

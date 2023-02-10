@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const TOKEN_SECRET = process.env.TOKEN_SECRET || 'secretJWT';
 
 const jwtConfig = {
-  expiresIn: '1m',
+  // expiresIn: '1m',
   algorithm: 'HS256',
 };
 
