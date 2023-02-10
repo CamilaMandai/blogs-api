@@ -46,7 +46,7 @@ const createPost = async ({ title, content, categoryIds }, token) => {
   // await PostCategory.create({ postId: posts.length, categoryId: categoryIds });
   // const createdPost = await BlogPost.findOne({ where: { id: posts.length } });
   const createPostCategoryPromisses = categoryIds.map(
-    (categoryId) => PostCategory.create({ postId: posts.length, categoryId })
+    (categoryId) => PostCategory.create({ postId: posts.length, categoryId }),
     );
   await Promise.all(createPostCategoryPromisses);
   return {
